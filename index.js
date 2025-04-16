@@ -38,9 +38,13 @@ app.post('/log', async (req, res) => {
 
     console.log(`✅ Message loggé : ${sender} - ${message}`);
     res.json({ success: true });
-  } catch (error) {
-    console.error('❌ Erreur Google Sheets :', error.message);
-    res.status(500).json({ error: 'Erreur lors de l\'enregistrement du message' });
+    } catch (error) {
+    console.error('❌ Erreur Google Sheets :');
+    console.error(JSON.stringify(error, null, 2));
+    res.status(500).json({
+      error: 'Erreur lors de l\'enregistrement du message',
+      details: error.message
+    });
   }
 });
 
